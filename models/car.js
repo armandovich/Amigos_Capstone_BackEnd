@@ -13,6 +13,14 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: String
     },
+    score:{
+        required: false,
+        type: Number
+    },
+    owner_id:{
+        required: true,
+        type: String
+    },
     latitude:{
         required: true,
         type: Number
@@ -21,15 +29,6 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: Number
     },
-    score:{
-        required: false,
-        type: Number
-    },
-    owner_id:{
-        required: true,
-        type: String
-    }
-
 })
 
 export default mongoose.model('cars', dataSchema)

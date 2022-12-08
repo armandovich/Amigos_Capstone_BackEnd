@@ -22,7 +22,7 @@ const dataSchema = new mongoose.Schema({
         type: String
     },
     admin: {
-        require: false,
+        required: false,
         type: Boolean
     }
 })

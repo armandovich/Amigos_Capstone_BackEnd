@@ -34,12 +34,12 @@ export default {
             name: req.body.name,
             price: req.body.price,
             brand: req.body.brand,
-            latitude: req.body.latitude,
             longitude: req.body.longitude,
+            latitude: req.body.latitude,
             owner_id: req.body.owner_id,
             score: 0,
         })
-    
+
         try {
             const dataToSave = data.save();
             res.status(200).json(dataToSave)
