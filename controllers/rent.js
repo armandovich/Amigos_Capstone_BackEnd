@@ -1,4 +1,4 @@
-import rentModel from '../models/rent';
+import rentModel from '../models/rent.js';
 import url from 'url';
 
 export default {
