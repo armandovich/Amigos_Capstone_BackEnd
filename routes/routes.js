@@ -1,6 +1,7 @@
 import express from 'express'
 import user from '../controllers/user.js'
 import car from '../controllers/car.js';
+import rent from '../controllers/rent.js';
 
 const router = express.Router()
 
@@ -32,6 +33,25 @@ router.patch('/car/:id', (req, res) => {
 
 router.delete('/car/:id', (req, res) => {
     car.delete(req, res);
+})
+
+//==========================
+// Rent Endpoints
+//==========================
+router.get('/rent', (req, res) => {
+    rent.get(req, res);
+})
+
+router.post('/rent', (req, res) => {
+    rent.post(req, res);
+})
+
+router.patch('/rent/:id', (req, res) => {
+    rent.patch(req, res);
+})
+
+router.delete('/rent/:id', (req, res) => {
+    rent.delete(req, res);
 })
 
 export default router;
