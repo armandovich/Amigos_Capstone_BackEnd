@@ -6,6 +6,45 @@ import rent from '../controllers/rent.js';
 const router = express.Router()
 
 //==========================
+// Images Endpoints
+//==========================
+
+router.post('/upload', async (req, res) => {
+    try {
+        if(!req.files) {
+            res.send({
+                status: false,
+                message: 'No file uploaded'
+            });
+        } else {
+            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
+            let car = req.files.car;
+            let name = (new Date()).getTime();
+            name += ('.' + car.name.split('.').pop());
+            
+            //Use the mv() method to place the file in the upload directory (i.e. "uploads")
+            car.mv('./uploads/' + name);
+
+console.log('=============');
+console.log(name);
+
+            //send response
+            res.send({
+                status: true,
+                message: 'File is uploaded',
+                data: {
+                    name: car.name,
+                    mimetype: car.mimetype,
+                    size: car.size
+                }
+            });
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+})
+
+//==========================
 // User Endpoints
 //==========================
 router.get('/user', (req, res) => {
