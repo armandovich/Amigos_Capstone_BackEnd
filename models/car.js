@@ -1,23 +1,23 @@
 import mongoose from 'mongoose'
 
 const dataSchema = new mongoose.Schema({
+    photo: {
+        required: true,
+        type: String
+    },
     name: {
         required: true,
         type: String
+    },
+    brand:{
+        required: true,
+        type: Number
     },
     price:{
         required: true,
         type: Number
     },
-    brand:{
-        required: true,
-        type: String
-    },
-    score:{
-        required: false,
-        type: Number
-    },
-    owner_id:{
+    address:{
         required: true,
         type: String
     },
@@ -28,6 +28,54 @@ const dataSchema = new mongoose.Schema({
     longitude:{
         required: true,
         type: Number
+    },
+    doors:{
+        required: true,
+        type: Number
+    },
+    seats:{
+        required: true,
+        type: Number
+    },
+    fuel:{
+        required: true,
+        type: Number
+    },
+    transmition:{
+        required: true,
+        type: Number
+    },
+    tires:{
+        required: true,
+        type: Number
+    },
+    cc:{
+        required: false,
+        type: Number
+    },
+    max_speed:{
+        required: false,
+        type: Number
+    },
+    bluetooth: {
+        required: false,
+        type: Boolean
+    },
+    gps: {
+        require: false,
+        type: Boolean
+    },
+    score: {
+        required: false,
+        type: Number
+    },
+    reviews: {
+        required: false,
+        type: Number
+    },
+    owner_id: {
+        required: true,
+        type: String
     },
 })
 

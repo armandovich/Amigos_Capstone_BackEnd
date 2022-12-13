@@ -47,10 +47,7 @@ export default {
         })
 
         try {
-            console.log('FUCKKKKKKK');
             const user = await userModel.find( { email: userTemp.email });
-            
-            console.log(user);
             
             if(user) {
                 if (user.length > 0) {

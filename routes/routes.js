@@ -62,6 +62,10 @@ router.get('/car', (req, res) => {
     car.get(req, res);
 })
 
+router.get('/car/:user_id', (req, res) => {
+    car.post(req, res);
+})
+
 router.post('/car', (req, res) => {
     car.post(req, res);
 })
