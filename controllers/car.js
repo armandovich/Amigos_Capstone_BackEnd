@@ -11,7 +11,7 @@ export default {
             if(queryString.latitude && queryString.longitude) {
                 const checkPoint = {lat:Number(queryString.latitude), lng:Number(queryString.longitude)}
                 const cars = await carModel.find();
-                const points = arePointsNear(checkPoint,cars,5)
+                const points = arePointsNear(checkPoint,cars,10)
                 console.log(points)
                 //const cars = await userModel.findOne( { email: queryString.email }) ;
                 if (points) {
@@ -37,7 +37,7 @@ export default {
             longitude: req.body.longitude,
             latitude: req.body.latitude,
             owner_id: req.body.owner_id,
-            score: 0,
+            score: req.body.score,
         })
 
         try {
