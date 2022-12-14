@@ -28,16 +28,51 @@ export default {
             res.status(500).json({message: error.message});
         }
     },
+    getByUser : async (req, res) => {
+        const id = req.params.user_id;
+
+        try {
+            const data = await carModel.find( { 'owner_id': { $in: id } } );
+
+            if (data) {
+                res.json(data);
+            } else {
+                throw new Error('Cars not found.');
+            }
+        } catch(error){
+            res.status(500).json({message: error.message});
+        }        
+    },
     post: async (req, res) => {
     
+        const carTemp = JSON.parse(req.body.car);
+ 
+        const carImg = req.files.photo;
+        let carImgName = (new Date()).getTime();
+        carImgName += ('.' + carImg.name.split('.').pop());
+
+        carImg.mv('./public/uploads/cars/' + carImgName);
+        
         const data = new carModel({
-            name: req.body.name,
-            price: req.body.price,
-            brand: req.body.brand,
-            longitude: req.body.longitude,
-            latitude: req.body.latitude,
-            owner_id: req.body.owner_id,
-            score: req.body.score,
+            photo: carImgName,
+            name: carTemp.name,
+            brand: carTemp.brand,
+            price: carTemp.price,
+            address: carTemp.address,
+            latitude: carTemp.latitude,
+            longitude: carTemp.longitude,
+            doors: carTemp.doors,
+            seats: carTemp.seats,
+            fuel: carTemp.fuel,
+            transmition: carTemp.transmition,
+            tires: carTemp.tires,
+            cc: carTemp.cc,
+            max_speed: carTemp.max_speed,
+            bluetooth: false,
+            gps: false,
+            score: 0,
+            reviews: 0,
+            owner_id: carTemp.owner_id,
         })
 
         try {

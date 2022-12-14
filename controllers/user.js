@@ -49,8 +49,6 @@ export default {
         try {
             const user = await userModel.find( { email: userTemp.email });
             
-            console.log(user);
-            
             if(user) {
                 if (user.length > 0) {
                     throw new Error('Email has been used.');
