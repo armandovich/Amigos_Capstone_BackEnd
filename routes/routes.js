@@ -3,6 +3,8 @@ import user from '../controllers/user.js'
 import car from '../controllers/car.js';
 import rent from '../controllers/rent.js';
 import Stripe from "stripe";
+import url from 'url';
+
 
 const router = express.Router()
 
@@ -72,7 +74,7 @@ router.post("/create-payment-intent", async (req, res) => {
     try {
       let amnt = queryString.amount
       const paymentIntent = await stripe.paymentIntents.create({
-        amount: amnt, //lowest denomination of particular currency
+        amount: amnt*100, //lowest denomination of particular currency
         currency: "usd",
         payment_method_types: ["card"], //by default
       });
