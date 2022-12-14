@@ -39,15 +39,15 @@ const dataSchema = new mongoose.Schema({
     },
     fuel:{
         required: true,
-        type: Number
+        type: String
     },
     transmition:{
         required: true,
-        type: Number
+        type: String
     },
     tires:{
         required: true,
-        type: Number
+        type: String
     },
     cc:{
         required: false,

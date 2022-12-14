@@ -63,7 +63,7 @@ router.get('/car', (req, res) => {
 })
 
 router.get('/car/:user_id', (req, res) => {
-    car.post(req, res);
+    car.getByUser(req, res);
 })
 
 router.post('/car', (req, res) => {

@@ -28,6 +28,21 @@ export default {
             res.status(500).json({message: error.message});
         }
     },
+    getByUser : async (req, res) => {
+        const id = req.params.user_id;
+
+        try {
+            const data = await carModel.find( { 'owner_id': { $in: id } } );
+
+            if (data) {
+                res.json(data);
+            } else {
+                throw new Error('Cars not found.');
+            }
+        } catch(error){
+            res.status(500).json({message: error.message});
+        }        
+    },
     post: async (req, res) => {
     
         const carTemp = JSON.parse(req.body.car);
