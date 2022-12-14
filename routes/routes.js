@@ -2,6 +2,7 @@ import express from 'express'
 import user from '../controllers/user.js'
 import car from '../controllers/car.js';
 import rent from '../controllers/rent.js';
+import Stripe from "stripe";
 
 const router = express.Router()
 
@@ -57,5 +58,32 @@ router.patch('/rent/:id', (req, res) => {
 router.delete('/rent/:id', (req, res) => {
     rent.delete(req, res);
 })
+
+//==========================
+// Payment Endpoint
+//==========================
+const PUBLISHABLE_KEY = "pk_test_51MEhG7Igw91omEHPgyJBmzbmu9a8CF8jIX7aMnAxRPrJ0nEX5R58g2kEOr65RBgF9cFTxQWVt7nJPwdVZjkEHLT300h8Sz10Py"
+const SECRET_KEY = "sk_test_51MEhG7Igw91omEHPcgpk2YxPbVSQObGaQbCrkW8jq8wTZ7RAr6Z4hGFR5hknovBjZlwZFb9QTFQb71Z9IJoNmtsr00jPusMqqU"
+const stripe = Stripe(SECRET_KEY, { apiVersion: "2022-11-15" });
+
+router.post("/create-payment-intent", async (req, res) => {
+    try {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: 1099, //lowest denomination of particular currency
+        currency: "usd",
+        payment_method_types: ["card"], //by default
+      });
+  
+      const clientSecret = paymentIntent.client_secret;
+      console.log(clientSecret)
+      res.json({
+        clientSecret: clientSecret,
+      });
+    } catch (e) {
+      console.log(e.message);
+      res.json({ error: e.message });
+    }
+  });
+
 
 export default router;
