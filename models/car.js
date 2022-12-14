@@ -11,7 +11,7 @@ const dataSchema = new mongoose.Schema({
     },
     brand:{
         required: true,
-        type: Number
+        type: String
     },
     price:{
         required: true,
