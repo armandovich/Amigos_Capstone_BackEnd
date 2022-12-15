@@ -12,7 +12,9 @@ export default {
                 const cars = await carModel.find();
                 const points = arePointsNear(checkPoint,cars,10)
                 console.log(points)
+                
                 //const cars = await userModel.findOne( { email: queryString.email }) ;
+
                 if(cars) {
                     if (points) {
                         res.json(points);
@@ -34,7 +36,7 @@ export default {
         const id = req.params.user_id;
 
         try {
-            const data = await carModel.find( { 'owner_id': { $in: id } } );
+            const data = await carModel.find( { 'owner_id': { $in: id } , 'available' : true });
 
             if (data) {
                 res.json(data);
@@ -53,7 +55,7 @@ export default {
         let carImgName = (new Date()).getTime();
         carImgName += ('.' + carImg.name.split('.').pop());
 
-        carImg.mv('./public/uploads/cars/' + carImgName);
+        await carImg.mv('./public/uploads/cars/' + carImgName);
         
         const data = new carModel({
             photo: carImgName,
@@ -70,16 +72,19 @@ export default {
             tires: carTemp.tires,
             cc: carTemp.cc,
             max_speed: carTemp.max_speed,
-            bluetooth: false,
-            gps: false,
             score: 0,
             reviews: 0,
             owner_id: carTemp.owner_id,
+            available: true
         })
 
         try {
-            const dataToSave = data.save();
-            res.status(200).json(dataToSave)
+            const dataToSave = await data.save();
+
+            if(dataToSave) {
+                console.log(dataToSave)
+                res.status(200).json(dataToSave)
+            }
         }
         catch (error) {
             res.status(400).json({message: error.message})
@@ -91,10 +96,6 @@ export default {
             const options = { new: true };
             const carTemp = JSON.parse(req.body.car);
             let carImgName = carTemp.photo;
-
-console.log(req.params.id);
-console.log(carTemp);
-console.log(req.files);
 
             if(req.files && req.files.photo) {
                 const carImg = req.files.photo;
@@ -119,8 +120,6 @@ console.log(req.files);
                 tires: carTemp.tires,
                 cc: carTemp.cc,
                 max_speed: carTemp.max_speed,
-                bluetooth: carTemp.bluetooth,
-                gps: carTemp.gps,
                 score: carTemp.score,
                 reviews: carTemp.reviews,
                 owner_id: carTemp.owner_id,
@@ -133,11 +132,11 @@ console.log(req.files);
             res.status(400).json({ message: error.message })
         }
     },
-
     delete: async (req, res) => {
         try {
             const id = req.params.id;
-            const data = await carModel.findByIdAndDelete(id);
+            //const data = await carModel.findByIdAndDelete(id);
+            const data = await carModel.findByIdAndUpdate( id, { available: false }, { new: true } );
             res.send(`Document with ${data.name} has been deleted..`);
         }
         catch (error) {

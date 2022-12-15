@@ -57,14 +57,6 @@ const dataSchema = new mongoose.Schema({
         required: false,
         type: Number
     },
-    bluetooth: {
-        required: false,
-        type: Boolean
-    },
-    gps: {
-        require: false,
-        type: Boolean
-    },
     score: {
         required: false,
         type: Number
@@ -77,6 +69,10 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: String
     },
+    available: {
+        require: false,
+        type: Boolean
+    }
 })
 
 export default mongoose.model('cars', dataSchema)
