@@ -1,4 +1,3 @@
-import userModel from '../models/user.js';
 import carModel from '../models/car.js';
 import arePointsNear from '../helpers/findPoints.js';
 import url from 'url';

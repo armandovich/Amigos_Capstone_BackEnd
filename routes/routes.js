@@ -4,6 +4,7 @@ import car from '../controllers/car.js';
 import rent from '../controllers/rent.js';
 import Stripe from "stripe";
 import url from 'url';
+import trip from '../controllers/trip.js';
 
 
 const router = express.Router()
@@ -90,5 +91,15 @@ router.post("/create-payment-intent", async (req, res) => {
     }
   });
 
+//==========================
+// Trip Endpoints
+//==========================
+router.get('/trip/:user_id', (req, res) => {
+    trip.get(req, res);
+})
+
+router.post('/trip', (req, res) => {
+    trip.post(req, res);
+})
 
 export default router;
