@@ -13,9 +13,12 @@ export default {
                 const points = arePointsNear(checkPoint,cars,10)
                 console.log(points)
                 //const cars = await userModel.findOne( { email: queryString.email }) ;
-                if (points) {
-                    res.json(points);
-                } else {
+                if(cars) {
+                    if (points) {
+                        res.json(points);
+                    }
+                }
+                else {
                     throw new Error('Cars not found.');
                 }
             } else {
@@ -85,10 +88,45 @@ export default {
     patch: async (req, res) => {
         try {
             const id = req.params.id;
-            const updatedData = req.body;
             const options = { new: true };
-    
-            const result = await carModel.findByIdAndUpdate( id, updatedData, options );
+            const carTemp = JSON.parse(req.body.car);
+            let carImgName = carTemp.photo;
+
+console.log(req.params.id);
+console.log(carTemp);
+console.log(req.files);
+
+            if(req.files && req.files.photo) {
+                const carImg = req.files.photo;
+                carImgName = (new Date()).getTime();
+                carImgName += ('.' + carImg.name.split('.').pop());
+
+                carImg.mv('./public/uploads/cars/' + carImgName);
+            }
+            
+            const data = {
+                photo: carImgName,
+                name: carTemp.name,
+                brand: carTemp.brand,
+                price: carTemp.price,
+                address: carTemp.address,
+                latitude: carTemp.latitude,
+                longitude: carTemp.longitude,
+                doors: carTemp.doors,
+                seats: carTemp.seats,
+                fuel: carTemp.fuel,
+                transmition: carTemp.transmition,
+                tires: carTemp.tires,
+                cc: carTemp.cc,
+                max_speed: carTemp.max_speed,
+                bluetooth: carTemp.bluetooth,
+                gps: carTemp.gps,
+                score: carTemp.score,
+                reviews: carTemp.reviews,
+                owner_id: carTemp.owner_id,
+            }
+
+            const result = await carModel.findByIdAndUpdate( id, data, options );
             res.send(result)
         }
         catch (error) {
