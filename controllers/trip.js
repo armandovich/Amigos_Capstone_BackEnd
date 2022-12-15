@@ -5,17 +5,32 @@ export default {
     get : async (req, res) => {
         const id = req.params.user_id;
 
-        try {
-            const data = await tripModel.find( { 'renter_id': { $in: id } } );
+        if(id){
+                try {
+                        const data = await tripModel.find( { 'renter_id': { $in: id } } );
 
-            if (data) {
-                res.json(data);
-            } else {
-                throw new Error('Trips not found.');
-            }
-        } catch(error){
-            res.status(500).json({message: error.message});
+                            if (data) {
+                                res.json(data);
+                            } else {
+                                throw new Error('Trips not found.');
+                            }
+                        } catch(error){
+                            res.status(500).json({message: error.message});
+                        }
+        }else{
+            try {
+                const data = await tripModel.find();
+
+                    if (data) {
+                        res.json(data);
+                    } else {
+                        throw new Error('Trips not found.');
+                    }
+                } catch(error){
+                    res.status(500).json({message: error.message});
+                }
         }
+        
     },
     post: async (req, res) => {
     
@@ -29,6 +44,8 @@ export default {
             car_brand: req.body.car_brand,
             car_photo: req.body.car_photo,
             renter_id: req.body.renter_id,
+            renter_photo: req.body.renter_photo,
+            renter_name: req.body.renter_name,
             cost: req.body.cost,
             start_date: tempStart,
             end_date: tempEnd,
