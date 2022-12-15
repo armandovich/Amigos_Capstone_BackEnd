@@ -25,6 +25,21 @@ export default {
             res.status(500).json({message: error.message});
         }
     },
+    getByUser : async (req, res) => {
+        const id = req.params.user_id;
+
+        try {
+            const data = await userModel.find( { '_id': { $in: id }});
+
+            if (data) {
+                res.json(data);
+            } else {
+                throw new Error('Users not found.');
+            }
+        } catch(error){
+            res.status(500).json({message: error.message});
+        }        
+    },
     post : async (req, res) => {
         const userTemp = JSON.parse(req.body.user);
  

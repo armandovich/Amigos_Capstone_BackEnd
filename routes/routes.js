@@ -16,6 +16,10 @@ router.get('/user', (req, res) => {
     user.get(req, res);
 })
 
+router.get('/user/:user_id', (req, res) => {
+    user.getByUser(req, res);
+})
+
 router.post('/user', (req, res) => {
     user.post(req, res);
 })
