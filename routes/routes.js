@@ -5,6 +5,7 @@ import rent from '../controllers/rent.js';
 import Stripe from "stripe";
 import url from 'url';
 import trip from '../controllers/trip.js';
+import chat from '../controllers/chat.js';
 
 
 const router = express.Router()
