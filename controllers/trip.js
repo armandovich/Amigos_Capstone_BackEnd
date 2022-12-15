@@ -5,17 +5,32 @@ export default {
     get : async (req, res) => {
         const id = req.params.user_id;
 
-        try {
-            const data = await tripModel.find( { 'renter_id': { $in: id } } );
+        if(id){
+                try {
+                        const data = await tripModel.find( { 'renter_id': { $in: id } } );
 
-            if (data) {
-                res.json(data);
-            } else {
-                throw new Error('Trips not found.');
-            }
-        } catch(error){
-            res.status(500).json({message: error.message});
+                            if (data) {
+                                res.json(data);
+                            } else {
+                                throw new Error('Trips not found.');
+                            }
+                        } catch(error){
+                            res.status(500).json({message: error.message});
+                        }
+        }else{
+            try {
+                const data = await tripModel.find();
+
+                    if (data) {
+                        res.json(data);
+                    } else {
+                        throw new Error('Trips not found.');
+                    }
+                } catch(error){
+                    res.status(500).json({message: error.message});
+                }
         }
+        
     },
     post: async (req, res) => {
     

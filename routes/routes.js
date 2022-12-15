@@ -75,7 +75,7 @@ router.post("/create-payment-intent", async (req, res) => {
     try {
       let amnt = queryString.amount
       const paymentIntent = await stripe.paymentIntents.create({
-        amount: amnt*100, //lowest denomination of particular currency
+        amount: amnt*10, //lowest denomination of particular currency
         currency: "usd",
         payment_method_types: ["card"], //by default
       });
@@ -96,7 +96,13 @@ router.post("/create-payment-intent", async (req, res) => {
 //==========================
 router.get('/trip/:user_id', (req, res) => {
     trip.get(req, res);
-})
+}
+)
+
+router.get('/trip', (req, res) => {
+    trip.get(req, res);
+}
+)
 
 router.post('/trip', (req, res) => {
     trip.post(req, res);
