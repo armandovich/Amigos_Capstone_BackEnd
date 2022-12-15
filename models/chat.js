@@ -16,6 +16,10 @@ const dataSchema = new mongoose.Schema({
     renter_id:{
         required: true,
         type: String
+    },
+    car_owner_id:{
+        required: true,
+        type: String
     }
 })
 

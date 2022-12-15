@@ -38,7 +38,8 @@ export default {
             avatar: req.body.avatar,
             first_name: req.body.first_name,
             last_name: req.body.last_name,
-            renter_id: req.body.renter_id
+            renter_id: req.body.renter_id,
+            car_owner_id: req.body.car_owner_id
         })
     
         try {
