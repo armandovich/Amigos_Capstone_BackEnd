@@ -9,7 +9,7 @@ export default {
         try{
             if(queryString.latitude && queryString.longitude) {
                 const checkPoint = {lat:Number(queryString.latitude), lng:Number(queryString.longitude)}
-                const cars = await carModel.find();
+                const cars = await carModel.find({'available' : true});
                 const points = arePointsNear(checkPoint,cars,10)
                 console.log(points)
                 
@@ -24,7 +24,7 @@ export default {
                     throw new Error('Cars not found.');
                 }
             } else {
-                const cars = await carModel.find();
+                const cars = await carModel.find({ 'available' : true});
                 res.json(cars);
             }
         }
