@@ -21,6 +21,10 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: String
     },
+    car_address: {
+        required: true,
+        type: String
+    },
     renter_id: {
         required: true,
         type: String
