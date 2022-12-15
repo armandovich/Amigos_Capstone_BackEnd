@@ -43,6 +43,7 @@ export default {
             car_name: req.body.car_name,
             car_brand: req.body.car_brand,
             car_photo: req.body.car_photo,
+            car_address: req.body.car_address,
             renter_id: req.body.renter_id,
             renter_photo: req.body.renter_photo,
             renter_name: req.body.renter_name,
