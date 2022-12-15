@@ -108,4 +108,21 @@ router.post('/trip', (req, res) => {
     trip.post(req, res);
 })
 
+//==========================
+// Chat Endpoints
+//==========================
+router.get('/chat/:user_id', (req, res) => {
+    chat.get(req, res);
+}
+)
+
+router.get('/chat', (req, res) => {
+    chat.get(req, res);
+}
+)
+
+router.post('/chat', (req, res) => {
+    chat.post(req, res);
+})
+
 export default router;
